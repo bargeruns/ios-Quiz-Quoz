@@ -9,17 +9,38 @@
 import UIKit
 
 class ViewController: UIViewController {
+    typealias Question = (question: String, answer: String)
+    
+    @IBOutlet var questionLabel: UILabel!
+    @IBOutlet var answerLabel: UILabel!
 
+    let questionsWithAnswers: [Question] = [
+        ("Cognac is made from what ingredient?", "Grapes"),
+        ("What is 7 + 7?", "14"),
+        ("What is the capital of Vermont?", "Montpelier")
+    ]
+    
+    var currentQuestion = 0
+    
+    @IBAction func showNextQuestion(sender: AnyObject) {
+        currentQuestion += 1
+        
+        if (currentQuestion == questionsWithAnswers.count) {
+            currentQuestion = 0
+        }
+        
+        questionLabel.text = questionsWithAnswers[currentQuestion].question
+        answerLabel.text = "???"
+    }
+    
+    @IBAction func showAnswer(sender: AnyObject) {
+        answerLabel.text = questionsWithAnswers[currentQuestion].answer
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        questionLabel.text = questionsWithAnswers[currentQuestion].question
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 
 }
 
